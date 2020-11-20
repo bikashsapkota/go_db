@@ -13,5 +13,5 @@ type DatabaseService interface {
 	AddAllIdentifiedMusic( int, int, string) (bool, error)
 	MarkMessageAsConsumed(int) (bool, error)
 	GetUnConsumedMessages() ([]model.KafkaMessages, error)
-	SaveNotification(notification model.Notification) (bool, error)
+	SaveNotification(model.Notification) (bool, error)
 }
