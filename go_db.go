@@ -111,3 +111,8 @@ func (pg *PgDatabase) GetUnConsumedMessages() ([]model.KafkaMessages, error) {
 
 	return result, nil
 }
+
+func (pg *PgDatabase) SaveNotification(notification model.Notification) (bool, error)  {
+	DbConn.Save(notification)
+	return true, nil
+}
