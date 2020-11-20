@@ -55,6 +55,6 @@ func (pg *MockDatabase) GetUnConsumedMessages() ([]model.KafkaMessages, error){
 }
 
 
-func (pg *MockDatabase) SaveNotification(notification model.Notification) (bool, error){
+func (pg *MockDatabase) SaveNotification(notification model.Notifications) (bool, error){
 	return true, nil
 }

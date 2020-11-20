@@ -26,7 +26,7 @@ type MusicCampaign struct {
   UpdatedAt time.Time
 }
 
-type Notification struct {
+type Notifications struct {
   Id int
   UserId int
   Message string
