@@ -22,6 +22,7 @@ func (pg *PgDatabase) InitDb(file io.Writer, maxIdleConns, maxOpenConns int) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	log.Println(connString)
 
 	DbConn, err = gorm.Open("mysql", connString)
 	if err != nil {
