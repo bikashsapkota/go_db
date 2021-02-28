@@ -14,4 +14,5 @@ type DatabaseService interface {
 	MarkMessageAsConsumed(int) (bool, error)
 	GetUnConsumedMessages() ([]model.KafkaMessages, error)
 	SaveNotification(model.Notifications) (bool, error)
+	GetAllJobs() ([]model.Job, error)
 }

@@ -121,3 +121,12 @@ func (pg *PgDatabase) SaveNotification(notification model.Notifications) (bool, 
 
 	return true, nil
 }
+
+func (pg *PgDatabase) GetAllJobs() ([]model.Job, error) {
+	jobs := []model.Job{}
+	if err:=DbConn.Select(&jobs).Error; err != nil {
+		log.Printf("DB Error: GetAllJons (%s)", err)
+		return nil, err
+	}
+	return jobs, nil
+}

@@ -42,3 +42,11 @@ type KafkaMessages  struct {
   Topic string
   Message string
 }
+
+type Job struct {
+ Id int
+ Title string
+ Interval int
+ Unit string
+ StartTime time.Time
+}

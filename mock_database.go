@@ -58,3 +58,8 @@ func (pg *MockDatabase) GetUnConsumedMessages() ([]model.KafkaMessages, error){
 func (pg *MockDatabase) SaveNotification(notification model.Notifications) (bool, error){
 	return true, nil
 }
+
+func (pg *MockDatabase) GetAllJobs() ([]model.Job, error) {
+	return nil,nil
+}
+
