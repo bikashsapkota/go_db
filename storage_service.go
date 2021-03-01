@@ -15,4 +15,6 @@ type DatabaseService interface {
 	GetUnConsumedMessages() ([]model.KafkaMessages, error)
 	SaveNotification(model.Notifications) (bool, error)
 	GetAllJobs() ([]model.Job, error)
+	GetKeyingCount()(int, error)
+	GetKeyerCount() (string, error)
 }

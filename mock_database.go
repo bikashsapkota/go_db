@@ -63,3 +63,10 @@ func (pg *MockDatabase) GetAllJobs() ([]model.Job, error) {
 	return nil,nil
 }
 
+func (pg *MockDatabase) GetKeyerCount() (string, error) {
+	return "", nil
+}
+
+func (pg *MockDatabase) GetKeyingCount() (int, error) {
+	return 0, nil
+}
