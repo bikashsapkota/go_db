@@ -35,6 +35,9 @@ type Notifications struct {
   Type string
   CreatedAt time.Time
   UpdatedAt time.Time
+  ReferenceId int
+  Subject string
+  Image string
 }
 
 type KafkaMessages  struct {
