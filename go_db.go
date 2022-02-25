@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+
 	"github.com/bikashsapkota/go_db/model"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -112,7 +113,7 @@ func (pg *PgDatabase) GetUnConsumedMessages() ([]model.KafkaMessages, error) {
 	return result, nil
 }
 
-func (pg *PgDatabase) SaveNotification(notification model.Notifications) (bool, error)  {
+func (pg *PgDatabase) SaveNotification(notification model.Notifications) (bool, error) {
 	if err := DbConn.Create(&notification).Error; err != nil {
 		log.Printf("DB Error: SaveNotification (%s)", err)
 		return false, err
@@ -150,21 +151,31 @@ func (pg *PgDatabase) GetKeyingCount() (int, error) {
 func (pg *PgDatabase) GetKeyerCount() (string, error) {
 	type Result struct {
 		DjName string `json:"dj_name"`
-		Count int `json:"count"`
+		Count  int    `json:"count"`
 	}
 
-	
 	result := []Result{}
 
 	if err := DbConn.Raw("select message->>'$.payload.dj_name' as dj_name, count(*) as count from kafka_messages where message->'$.match' = 'no_match' group by dj_name;").Scan(&result).Error; err != nil {
 		log.Printf("DB Error: Get Keying Count (%s)", err)
 		return "", err
 	}
-	
+
 	var resp = ""
-	for _,res := range(result) {
+	for _, res := range result {
 		resp += fmt.Sprintf("DjName: %s\tCount: %d\n", res.DjName, res.Count)
 	}
-	
+
 	return resp, nil
+}
+
+func (pg *PgDatabase) GetDjUserIdWithGenre(genre_id string) (*[]int, error) {
+	log.Println("GetDjIdWithGenre")
+	var result []int
+	if err := DbConn.Raw("SELECT djs.user_id FROM dj__musics, djs where music_type = ? and djs.id = dj__musics.dj_id", genre_id).Scan(&result).Error; err != nil {
+		log.Printf("DB Error: GetAllJobs (%s)", err)
+		return nil, err
+	}
+
+	return &result, nil
 }
