@@ -170,12 +170,22 @@ func (pg *PgDatabase) GetKeyerCount() (string, error) {
 }
 
 func (pg *PgDatabase) GetDjUserIdWithGenre(genre_id string) (*[]int, error) {
-	log.Println("GetDjIdWithGenre")
-	var result []int
-	if err := DbConn.Raw("SELECT djs.user_id FROM dj__musics, djs where music_type = ? and djs.id = dj__musics.dj_id", genre_id).Scan(&result).Error; err != nil {
-		log.Printf("DB Error: GetAllJobs (%s)", err)
-		return nil, err
+	var (
+		id int
+		response []int
+	)
+	rows, _ := DbConn.Raw("SELECT user_id as id FROM dj__musics, djs where music_type = ? and djs.id = dj__musics.dj_id", genre_id).Rows()
+	
+	defer rows.Close()
+	for rows.Next() {
+		err := rows.Scan(&id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Println(id)
+		response = append(response, id)
 	}
-
-	return &result, nil
+	
+	
+	return &response, nil
 }
