@@ -189,3 +189,18 @@ func (pg *PgDatabase) GetDjUserIdWithGenre(genre_id string) (*[]int, error) {
 	
 	return &response, nil
 }
+
+func (pg *PgDatabase) GetWithdrawRequestCount() (int, error) {
+	type Result struct {
+		Count int `json:"count"`
+	}
+
+	var result Result
+
+	if err := DbConn.Raw("select count(id) as count from withdrawal_requests where status = 'requested'").Scan(&result).Error; err != nil {
+		log.Printf("DB Error: Get Withdraw Request Count (%s)", err)
+		return 0, err
+	}
+
+	return result.Count, nil
+}

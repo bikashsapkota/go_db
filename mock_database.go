@@ -73,3 +73,7 @@ func (pg *MockDatabase) GetKeyingCount() (int, error) {
 func (pg *MockDatabase) GetDjUserIdWithGenre(string) (*[]int, error) {
 	return nil, nil
 }
+
+func (pg *MockDatabase) GetWithdrawRequestCount() (int, error) {
+	return 0, nil
+}

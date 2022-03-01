@@ -19,4 +19,5 @@ type DatabaseService interface {
 	GetKeyingCount() (int, error)
 	GetKeyerCount() (string, error)
 	GetDjUserIdWithGenre(string) (*[]int, error)
+	GetWithdrawRequestCount() (int, error)
 }
